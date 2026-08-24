@@ -1,5 +1,10 @@
 # DEPLOYMENT — what to do once the code exists
 
+> **Deploying for the first time?** Start with
+> **[PRODUCTION.md](PRODUCTION.md)** — an ordered, do-this-then-that checklist
+> with working code for the security blockers. This file is the reference
+> companion: the full option space for hosting, infrastructure and CD.
+
 Everything below is free or open source. Where a hosted service has a paid tier
 I say so explicitly and give a self-hosted alternative, so you never *have* to
 pay for anything.

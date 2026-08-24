@@ -21,6 +21,7 @@ with **zero lost**, including a hard `SIGKILL` of the worker mid-flight.
 
 ## Contents
 
+- [How it works](#how-it-works)
 - [Quick start](#quick-start)
 - [Architecture](#architecture)
 - [Delivery state machine](#delivery-state-machine)
@@ -33,6 +34,219 @@ with **zero lost**, including a hard `SIGKILL` of the worker mid-flight.
 - [Load and chaos test results](#load-and-chaos-test-results)
 - [Repository layout](#repository-layout)
 - [Further reading](#further-reading)
+
+---
+
+## How it works
+
+A walkthrough of one event's whole life, in plain language. Nothing here assumes
+you have read the code.
+
+### The cast
+
+- **A tenant** is a customer of HookRelay — your application. It gets one API
+  key for publishing and an email/password for the dashboard.
+- **An endpoint** is a URL a tenant registered, plus the list of event types it
+  wants. Each endpoint has its own `whsec_` signing secret.
+- **An event** is something that happened: `order.created`, with a JSON payload.
+  Immutable once published.
+- **A delivery** is one event's journey to *one* endpoint. If three endpoints
+  subscribe to `order.created`, publishing one event creates three deliveries.
+  Each retries independently — one endpoint being down does not affect the
+  others.
+- **An attempt** is a single HTTP request. A delivery may have up to eight.
+
+The distinction between *event*, *delivery* and *attempt* is the thing to hold
+onto. An event is what happened; a delivery is a promise to one subscriber; an
+attempt is one try at keeping that promise.
+
+### Step 1 — you publish an event
+
+```bash
+curl -X POST localhost:8080/events \
+  -H "Authorization: Bearer $KEY" \
+  -H "Idempotency-Key: order-1234-created" \
+  -d '{"event_type":"order.created","payload":{"order_id":"ord_1234"}}'
+```
+
+HookRelay validates it, then does four things in one database transaction:
+
+1. Writes the **event** row (with a ULID for an id, so ids sort by time).
+2. Looks up every **active endpoint** subscribed to `order.created`.
+3. Writes one **delivery** row per endpoint, all in state `pending`.
+4. Commits.
+
+Only *after* that commit does it push the delivery IDs onto the Redis queue and
+return `202 Accepted`.
+
+That ordering is the single most important thing in the system. Everything is
+durable in Postgres before Redis is told anything exists. If the process is
+killed between the commit and the queue push, the deliveries are already sitting
+in the database marked `pending` — and the scheduler (step 5) will find them. The
+queue makes delivery *fast*; the database is what makes it *reliable*.
+
+If you sent an `Idempotency-Key` you already used, HookRelay returns the original
+event with `"duplicate": true` and creates nothing. Retrying a publish because
+your own network hiccuped can never double-send.
+
+### Step 2 — a worker picks the delivery up
+
+The worker process reads delivery IDs off the Redis stream. Notice what the
+stream carries: **just the ID**. Not the payload, not the URL, not the secret.
+The worker takes that ID and loads the current state from Postgres.
+
+This is why losing Redis costs you nothing permanent, and why a retry always
+uses the *latest* endpoint configuration — change the URL or rotate the secret
+and in-flight retries pick it up immediately.
+
+Before doing any work, the worker tries to **claim** the delivery:
+
+```sql
+UPDATE deliveries SET status = 'delivering'
+WHERE id = $1 AND status = 'pending'
+```
+
+If that returns no row, someone else already has it, or it already succeeded, or
+it is currently waiting out a retry delay. The worker acknowledges the queue
+entry and drops it. This one conditional update is what makes duplicate queue
+entries harmless instead of dangerous.
+
+### Step 3 — the request is signed and sent
+
+The worker builds a canonical JSON body:
+
+```json
+{"id":"01J8Z...","event_type":"order.created","timestamp":1750000000,"data":{"order_id":"ord_1234"}}
+```
+
+then computes `HMAC-SHA256` over the exact string `{id}.{timestamp}.{body}` using
+the endpoint's secret, and POSTs with a 10-second timeout:
+
+```
+X-HookRelay-Id:        01J8Z...
+X-HookRelay-Timestamp: 1750000000
+X-HookRelay-Signature: v1=3f2a9c...
+X-HookRelay-Attempt:   1
+```
+
+Your subscriber recomputes that HMAC with its copy of the secret. If it matches,
+the request genuinely came from HookRelay and has not been altered.
+
+Why sign the id and timestamp too, rather than just the body? Because a
+signature over the body alone is valid *forever*. Anyone who captures one
+legitimate request could replay it verbatim next year and the receiver would have
+no way to object. With the timestamp inside the signature, the receiver rejects
+anything older than a few minutes — and it cannot be forged, because changing the
+timestamp breaks the signature.
+
+**2xx means delivered.** Anything else — a 500, a timeout, a refused
+connection — is a failure.
+
+### Step 4 — the outcome is recorded, then acknowledged
+
+In one transaction the worker writes an **attempt** row (status code, latency,
+error text) and moves the delivery to its next state:
+
+- **2xx** → `succeeded`. Done.
+- **Failure, retries left** → `failed`, with `next_attempt_at` set to now plus
+  the next backoff delay.
+- **Failure, retries exhausted** → `dead`. It is now in the dead-letter queue.
+
+Only after that transaction commits does the worker send `XACK` to Redis.
+
+That order is deliberate and it is what the whole reliability claim rests on. An
+unacknowledged queue entry therefore *always* means "an attempt whose result was
+never recorded". If the worker is killed at any point before the `XACK`, Redis
+still holds the entry in its pending list, and it gets picked up again. If we
+acknowledged first and recorded second, a crash in between would lose the
+delivery with no trace of it anywhere.
+
+### Step 5 — failures come back later
+
+A `failed` delivery is not in the queue any more; it is just a database row with
+a future `next_attempt_at`. The **scheduler** runs once a second, finds rows whose
+time has come, and puts them back on the queue.
+
+The delays are `5s → 30s → 2m → 10m → 30m → 2h → 5h`, each with ±20% random
+jitter, giving a total window of about eight hours. The delays are shaped around
+how real outages resolve: seconds for a dropped connection, minutes for a
+deploy, hours for an incident someone has been paged about. The jitter matters
+because a hundred deliveries that failed together would otherwise all retry at
+the same instant and hit the recovering endpoint as one spike.
+
+The scheduler has one subtlety worth knowing. When it promotes a delivery it
+pushes `next_attempt_at` 60 seconds into the future rather than clearing it. If
+the queue push then fails, the row simply becomes due again a minute later. Had
+it cleared the timestamp, a failed push would leave a row that no query ever
+selects again — committed, visible as "pending" forever, and never delivered.
+Silent loss, which is the exact thing this system exists to prevent.
+
+### Step 6 — if the endpoint stays broken
+
+Two protections kick in.
+
+**The circuit breaker.** After 20 consecutive failures an endpoint is paused for
+five minutes. Its deliveries are recorded as `skipped` and deferred without
+burning a retry.
+
+This protects *HookRelay*, not your subscriber. Without it, one hard-down
+endpoint with 10,000 queued deliveries would occupy every worker for the full
+10-second timeout, over and over, while healthy endpoints waited behind it. In
+the load test the breaker turned roughly 30,000 would-be timeouts into cheap
+skips — it is the reason the run finished at all.
+
+**The absolute deadline.** Because a skip does not consume a retry, a delivery
+for an endpoint that never recovers would otherwise be deferred forever and never
+die. `DELIVERY_MAX_AGE` (24 hours by default) is the backstop that guarantees
+every delivery eventually reaches a terminal state.
+
+### Step 7 — the dead-letter queue and replay
+
+A delivery that used all eight attempts is `dead`. It is not gone: it is sitting
+in the dead-letter queue with its full attempt history — every status code, every
+error, every latency. You can see it at `/dlq` in the dashboard.
+
+Once the subscriber is fixed, **replay** resets `attempt_count` to zero and puts
+the delivery back on the queue, individually or in bulk. Replay also clears that
+endpoint's circuit breaker, so a retry you asked for is never silently skipped by
+a breaker still open from the original failure.
+
+### What happens when a worker dies mid-delivery
+
+This is the case everything above is built around, so it is worth stating
+plainly. A worker is `SIGKILL`ed after claiming a delivery and sending the HTTP
+request, but before recording the result. Two things are now stranded:
+
+1. The **database row** is stuck in `delivering` — no worker owns it any more.
+2. The **queue entry** is unacknowledged in Redis's pending list, attributed to a
+   consumer that no longer exists.
+
+The **reaper** repairs both, every 15 seconds:
+
+- `XAUTOCLAIM` transfers stranded queue entries to a live worker.
+- A separate sweep finds rows stuck in `delivering` too long, returns them to
+  `pending`, and re-queues them — necessary because the original entry may
+  already have been acknowledged.
+
+Both paths are needed; neither alone covers every crash. The chaos test kills a
+worker with 50 deliveries in flight and watches both fire: 50 stale rows
+recovered, 101 queue entries reclaimed, and all 1,000 deliveries delivered.
+
+### The one thing you must do on your side
+
+Delivery is **at-least-once**, which means a delivery can arrive twice. That is
+not a bug and it is not fixable — see
+[EXPLANATION.md](EXPLANATION.md#1-why-at-least-once-and-not-exactly-once) for why
+exactly-once delivery over a network is impossible.
+
+The scenario is simple: a worker POSTs successfully, then dies before recording
+it. Your server processed the event. HookRelay has no idea. It retries.
+
+So **your handler must be idempotent.** Deduplicate on `X-HookRelay-Id` — it is
+the event's ULID and is byte-identical across every retry of that event. Store
+the ids you have processed and ignore repeats. That turns at-least-once into
+effectively-exactly-once, in the one place where the necessary transaction
+actually exists: your own database.
 
 ---
 
@@ -637,7 +851,8 @@ hookrelay/
 ├── docker-compose.yml       postgres, redis, api, worker, receiver, frontend
 ├── README.md                this file
 ├── EXPLANATION.md           design walkthrough + interview questions
-├── DEPLOYMENT.md            everything to do after the code exists
+├── PRODUCTION.md            ordered $0 production-readiness checklist
+├── DEPLOYMENT.md            hosting, infra and CD reference
 ├── backend/                 Go 1.24+
 │   ├── cmd/api/             HTTP API, runs migrations on startup
 │   ├── cmd/worker/          delivery pool, scheduler, reaper
@@ -670,6 +885,10 @@ hookrelay/
 - **[EXPLANATION.md](EXPLANATION.md)** — every component and design decision in
   plain language, the alternatives considered and rejected, and the ten hardest
   questions this architecture invites, answered properly.
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** — hosting, Redis and Postgres setup,
-  secrets, free GitOps/CD options, monitoring, backups, and an honest hardening
-  checklist of what this codebase does not do yet.
+- **[PRODUCTION.md](PRODUCTION.md)** — the ordered checklist for taking this to
+  production **for $0**: the blockers (SSRF, secrets, TLS) with working code, then
+  rate limiting, metrics and alerts, growth control, and backups. Start here if
+  you are deploying.
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** — the reference companion: hosting options,
+  Redis and Postgres setup, the Redis settings that quietly bite, secrets
+  management, and free GitOps/CD choices.
