@@ -1,0 +1,117 @@
+name: hookrelay
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hookrelay
+      POSTGRES_PASSWORD: hookrelay
+      POSTGRES_DB: hookrelay
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hookrelay -d hookrelay"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    # appendonly keeps the stream (and its consumer-group PELs) across restarts.
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: ./backend
+    command: ["/usr/local/bin/api"]
+    environment:
+      DATABASE_URL: postgres://hookrelay:hookrelay@postgres:5432/hookrelay?sslmode=disable
+      REDIS_URL: redis://redis:6379/0
+      API_ADDR: ":8080"
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me}
+      CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:-*}
+      ENVIRONMENT: development
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  worker:
+    build:
+      context: ./backend
+    command: ["/usr/local/bin/worker"]
+    environment:
+      DATABASE_URL: postgres://hookrelay:hookrelay@postgres:5432/hookrelay?sslmode=disable
+      REDIS_URL: redis://redis:6379/0
+      WORKER_COUNT: ${WORKER_COUNT:-8}
+      DELIVERY_TIMEOUT: 10s
+      SCHEDULER_INTERVAL: 1s
+      REAPER_INTERVAL: 15s
+      REAPER_MIN_IDLE: 60s
+      BREAKER_THRESHOLD: 20
+      BREAKER_COOLDOWN: 5m
+      # Absolute deadline. Breaker skips do not consume the retry budget, so
+      # this is what stops a delivery to a permanently dead endpoint from being
+      # deferred forever instead of dead-lettering.
+      DELIVERY_MAX_AGE: ${DELIVERY_MAX_AGE:-24h}
+      # Compress the backoff in a test environment to exercise the dead-letter
+      # path in seconds, e.g. RETRY_SCHEDULE=1s,1s,2s,2s,3s,3s,4s
+      RETRY_SCHEDULE: ${RETRY_SCHEDULE:-}
+      ENVIRONMENT: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_started
+    # The chaos test kills this container mid-run; restarting it must lose nothing.
+    restart: unless-stopped
+
+  receiver:
+    build:
+      context: ./receiver
+    environment:
+      RECEIVER_ADDR: ":9090"
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9090/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      # The browser talks to the API directly, so this must be host-reachable.
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8080}
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  pgdata:
+  redisdata:

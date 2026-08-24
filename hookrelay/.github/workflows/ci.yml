@@ -1,0 +1,162 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (build, vet, test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache-dependency-path: backend/go.sum
+      - name: go build
+        working-directory: backend
+        run: go build ./...
+      - name: go vet
+        working-directory: backend
+        run: go vet ./...
+      - name: gofmt
+        working-directory: backend
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "These files are not gofmt'd:"
+            echo "$unformatted"
+            exit 1
+          fi
+      - name: go test
+        working-directory: backend
+        run: go test -race ./...
+
+  receiver:
+    name: Receiver (build, vet)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+      - working-directory: receiver
+        run: go build ./... && go vet ./...
+
+  loadtest:
+    name: Load test tool (build, vet)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+      - working-directory: loadtest
+        run: go build ./... && go vet ./...
+
+  frontend:
+    name: Frontend (typecheck, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - working-directory: frontend
+        run: npm ci
+      - working-directory: frontend
+        run: npm run typecheck
+      - working-directory: frontend
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_API_URL: http://localhost:8080
+        run: npm run build
+
+  e2e:
+    name: End-to-end verification
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: hookrelay
+          POSTGRES_PASSWORD: hookrelay
+          POSTGRES_DB: hookrelay
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U hookrelay -d hookrelay"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgres://hookrelay:hookrelay@localhost:5432/hookrelay?sslmode=disable
+      REDIS_URL: redis://localhost:6379/0
+      JWT_SECRET: ci-only-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache-dependency-path: backend/go.sum
+
+      - name: Build binaries
+        run: |
+          go build -o /tmp/api    ./cmd/api
+          go build -o /tmp/worker ./cmd/worker
+          cd ../receiver && go build -o /tmp/receiver .
+        working-directory: backend
+
+      - name: Start the stack
+        run: |
+          /tmp/receiver &
+          API_ADDR=:8080 /tmp/api &
+          # A compressed backoff so the dead-letter path finishes in seconds.
+          RETRY_SCHEDULE=1s,1s,2s,2s,3s,3s,4s \
+          WORKER_COUNT=12 REAPER_INTERVAL=5s REAPER_MIN_IDLE=10s \
+          BREAKER_THRESHOLD=20 BREAKER_COOLDOWN=5s DELIVERY_MAX_AGE=5m \
+          /tmp/worker &
+          for _ in $(seq 1 40); do
+            curl -sf http://localhost:8080/healthz >/dev/null \
+              && curl -sf http://localhost:9090/healthz >/dev/null && break
+            sleep 0.5
+          done
+          curl -sf http://localhost:8080/readyz
+
+      - name: scripts/verify.sh
+        run: scripts/verify.sh
+        env:
+          API_URL: http://localhost:8080
+          RECEIVER_URL: http://localhost:9090
+          BREAKER_THRESHOLD: '20'
+
+      - name: scripts/chaos.sh
+        run: scripts/chaos.sh 200
+        env:
+          API_URL: http://localhost:8080
+          RECEIVER_URL: http://localhost:9090
+          SETTLE_TIMEOUT: '180'
+          # Locally the worker is a plain process, not a container.
+          WORKER_KILL_CMD: 'pkill -9 -f /tmp/worker'
+          WORKER_START_CMD: >-
+            bash -c 'RETRY_SCHEDULE=1s,1s,2s,2s,3s,3s,4s WORKER_COUNT=12
+            REAPER_INTERVAL=5s REAPER_MIN_IDLE=10s BREAKER_COOLDOWN=5s
+            DELIVERY_MAX_AGE=5m nohup /tmp/worker > /tmp/worker.log 2>&1 & sleep 3'
+
+  compose:
+    name: docker compose config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config --quiet

@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #0a0b0e;
+  color: #e8eaf0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A restrained scrollbar so wide tables do not shout. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0b0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #252932;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333846;
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg border border-border bg-surface shadow-card;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border px-3 py-1.5
+           text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn border-accent/40 bg-accent/15 text-accent hover:bg-accent/25;
+  }
+  .btn-ghost {
+    @apply btn border-border bg-raised text-ink hover:border-muted/40 hover:bg-border/60;
+  }
+  .btn-danger {
+    @apply btn border-danger/40 bg-danger/10 text-danger hover:bg-danger/20;
+  }
+  .input {
+    @apply w-full rounded-md border border-border bg-canvas px-3 py-2 text-sm text-ink
+           placeholder:text-muted/60 focus:border-accent/60 focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted;
+  }
+  .th {
+    @apply whitespace-nowrap px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .td {
+    @apply whitespace-nowrap px-4 py-3 text-sm text-ink;
+  }
+}
