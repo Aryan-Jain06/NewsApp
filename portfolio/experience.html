@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Experience — Aryan Jain</title>
-<meta name="description" content="Backend engineering roles: algorithmic trading systems in Go at Lemonn (CoinSwitch group), and Spring Boot backend development at Padhai Help. NSUT Delhi, B.Tech CSE 2026.">
+<meta name="description" content="Backend Engineer at Lemonn (CoinSwitch group) since January 2026, working on algorithmic trading systems in Go. Previously a backend intern at Padhai Help. B.Tech CSE, NSUT Delhi.">
 <meta name="author" content="Aryan Jain">
 <link rel="canonical" href="https://aryan-jain06.github.io/experience.html">
-<meta name="theme-color" content="#08090b">
+<meta name="theme-color" content="#fdfaf6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="index, follow">
 <meta name="keywords" content="Aryan Jain, backend engineer, Go, distributed systems, trading infrastructure, reliability engineering, Kafka, Redis, PostgreSQL, Kubernetes, NSUT Delhi">
 
@@ -16,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aryan Jain">
 <meta property="og:title" content="Experience — Aryan Jain">
-<meta property="og:description" content="Backend engineering roles: algorithmic trading systems in Go at Lemonn (CoinSwitch group), and Spring Boot backend development at Padhai Help. NSUT Delhi, B.Tech CSE 2026.">
+<meta property="og:description" content="Backend Engineer at Lemonn (CoinSwitch group) since January 2026, working on algorithmic trading systems in Go. Previously a backend intern at Padhai Help. B.Tech CSE, NSUT Delhi.">
 <meta property="og:url" content="https://aryan-jain06.github.io/experience.html">
 <meta property="og:image" content="https://aryan-jain06.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -27,15 +28,23 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Experience — Aryan Jain">
-<meta name="twitter:description" content="Backend engineering roles: algorithmic trading systems in Go at Lemonn (CoinSwitch group), and Spring Boot backend development at Padhai Help. NSUT Delhi, B.Tech CSE 2026.">
+<meta name="twitter:description" content="Backend Engineer at Lemonn (CoinSwitch group) since January 2026, working on algorithmic trading systems in Go. Previously a backend intern at Padhai Help. B.Tech CSE, NSUT Delhi.">
 <meta name="twitter:image" content="https://aryan-jain06.github.io/assets/og.png">
 
+<!-- icons: SVG for browsers that take it, PNG for the ones that don't
+     (iOS ignores SVG for the home-screen icon entirely) -->
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/favicon.svg">
+<link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Aryan Jain">
+<meta name="format-detection" content="telephone=no">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<!-- fonts are served from this site, so there is no third-party request and
+     nothing to fail on a restricted network -->
+<link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 
 <script>document.documentElement.className = "js";</script>
@@ -72,9 +81,8 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Experience</span>
-      <h2 class="section-title">Where I have shipped</h2>
-      <p class="section-sub">Backend work, mostly in Go, mostly on systems where
-      being wrong is expensive.</p>
+      <h2 class="section-title">Experience</h2>
+      <p class="section-sub">Backend roles, mostly Go and Java.</p>
     </div>
 
     <div class="timeline">
@@ -88,24 +96,25 @@
         </div>
         <div class="tl-body">
           <ul class="bullets">
-            <li>Built a <strong>high-speed algorithmic trading engine in Go</strong>
-            that pools user capital and executes large-scale orders against custom
-            strategies, processing real-time market ticks and candle data to
-            evaluate predefined trading conditions.</li>
-            <li>Built a secure <strong>Telegram-based trading gateway</strong> in Go
-            with JWT authentication and REST integration, routing high-frequency
-            user orders straight into the core execution engine.</li>
-            <li>Architected a highly available <strong>Trailing Stop Loss
-            microservice</strong> on Kubernetes with Kafka-based stream processing,
-            giving reliable risk-management execution across thousands of
-            concurrent orders.</li>
+            <li>Developed a <strong>high-speed algorithmic trading engine in
+            Go</strong> that pools user capital and executes large-scale orders
+            against custom trading strategies, processing real-time market ticks
+            and candle data to evaluate predefined trading conditions.</li>
+            <li>Built a secure <strong>Telegram-based trading gateway</strong> in
+            Go with JWT authentication and REST API integration, routing
+            high-frequency user orders directly into the core execution
+            engine.</li>
+            <li>Architected a highly available <strong>trailing stop loss
+            microservice</strong> on Kubernetes with Kafka-based real-time stream
+            processing, enabling reliable risk-management execution across
+            thousands of concurrent orders.</li>
             <li>Built a <strong>replay and paper-trading framework</strong> that
-            simulates post-market execution, so users and internal teams can
-            validate strategies and analyse performance without live market
-            exposure.</li>
+            simulates post-market execution, allowing users and internal teams to
+            validate strategies, test trading logic and analyse performance
+            without live market exposure.</li>
             <li>Migrated a core trading service <strong>from Java to Go</strong>,
-            redesigning concurrent workflows to cut p99 latency and compute cost
-            at scale.</li>
+            redesigning concurrent workflows to reduce p99 latency and compute
+            costs at scale.</li>
           </ul>
           <div class="tags tl-tags">
             <span class="tag tag--accent">Go</span>
@@ -114,7 +123,7 @@
             <span class="tag">PostgreSQL</span>
             <span class="tag">Kubernetes</span>
             <span class="tag">Docker</span>
-            <span class="tag">gRPC / REST</span>
+            <span class="tag">REST APIs</span>
             <span class="tag">Grafana</span>
           </div>
         </div>
@@ -131,11 +140,11 @@
         <div class="tl-body">
           <ul class="bullets">
             <li>Developed modular <strong>RESTful APIs in Spring Boot</strong> to
-            process learner progress data, tuning PostgreSQL queries for fast,
-            secure synchronisation across users.</li>
-            <li>Designed the relational schemas and core backend business logic
-            that enforce <strong>course prerequisites and automated progression
-            rules</strong> at scale.</li>
+            process learner progress data, optimising PostgreSQL queries to
+            support fast, secure synchronisation for users.</li>
+            <li>Designed relational database schemas and implemented the backend
+            business logic that enforces <strong>course prerequisites and
+            automated progression rules</strong> at scale.</li>
           </ul>
           <div class="tags tl-tags">
             <span class="tag tag--accent">Java</span>
@@ -153,7 +162,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Education</span>
-      <h2 class="section-title">Where I learned it</h2>
+      <h2 class="section-title">Education</h2>
     </div>
 
     <div class="timeline">
@@ -167,9 +176,7 @@
         </div>
         <div class="tl-body">
           <ul class="bullets">
-            <li>Head of the college <strong>chess team</strong>.</li>
-            <li>Coursework and side work centred on operating systems, networks,
-            databases and distributed systems.</li>
+            <li>Head of the college chess team.</li>
           </ul>
         </div>
       </article>
@@ -184,7 +191,7 @@
         </div>
         <div class="tl-body">
           <ul class="bullets">
-            <li>Captain of the <strong>chess team</strong>.</li>
+            <li>Captain of the chess team.</li>
           </ul>
         </div>
       </article>
@@ -195,8 +202,8 @@
 <section class="section" style="padding-top: 0">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Beyond the job</span>
-      <h2 class="section-title">Competitive record</h2>
+      <span class="eyebrow">Also</span>
+      <h2 class="section-title">Competitive programming</h2>
     </div>
 
     <div class="stats">
@@ -206,34 +213,21 @@
       </div>
       <div class="stat reveal" data-d="2">
         <p class="stat__num">1700+</p>
-        <p class="stat__label">LeetCode contest rating</p>
+        <p class="stat__label">LeetCode rating</p>
       </div>
       <div class="stat reveal" data-d="3">
         <p class="stat__num">#500</p>
-        <p class="stat__label">Global rank, International Mathematics Olympiad</p>
-      </div>
-      <div class="stat reveal" data-d="4">
-        <p class="stat__num">Chess</p>
-        <p class="stat__label">Team captain in school, team head at NSUT</p>
+        <p class="stat__label">Global rank in the International Mathematics
+        Olympiad, during school</p>
       </div>
     </div>
   </div>
 </section>
-
-<section class="cta-band section--tight section">
-  <div class="wrap reveal">
-    <h2>The projects are where the detail lives</h2>
-    <p>Two of them ship with a load test that asserts the invariant and a chaos script that attacks it.</p>
-    <div class="btn-row">
-      <a class="btn btn--primary" href="projects.html">See the projects <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></a>
-      <a class="btn btn--ghost" href="contact.html">Get in touch</a>
-    </div>
-  </div>
-</section></main>
+</main>
 
 <footer class="footer">
   <div class="wrap footer__inner">
-    <p class="footer__meta">© 2026 Aryan Jain — built from scratch, no frameworks.</p>
+    <p class="footer__meta">© 2026 Aryan Jain</p>
     <div class="footer__links">
       <a href="https://github.com/Aryan-Jain06" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/aryan-jain0612" target="_blank" rel="noopener">LinkedIn</a>
