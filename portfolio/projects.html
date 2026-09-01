@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Projects — Aryan Jain</title>
+<meta name="description" content="Backend and infrastructure projects: HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticketing), Gramin Sahayak, and machine-learning work in Python.">
+<meta name="author" content="Aryan Jain">
+<link rel="canonical" href="https://aryan-jain06.github.io/projects.html">
+<meta name="theme-color" content="#08090b">
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="Aryan Jain, backend engineer, Go, distributed systems, trading infrastructure, reliability engineering, Kafka, Redis, PostgreSQL, Kubernetes, NSUT Delhi">
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aryan Jain">
+<meta property="og:title" content="Projects — Aryan Jain">
+<meta property="og:description" content="Backend and infrastructure projects: HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticketing), Gramin Sahayak, and machine-learning work in Python.">
+<meta property="og:url" content="https://aryan-jain06.github.io/projects.html">
+<meta property="og:image" content="https://aryan-jain06.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aryan Jain — backend engineer">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Projects — Aryan Jain">
+<meta name="twitter:description" content="Backend and infrastructure projects: HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticketing), Gramin Sahayak, and machine-learning work in Python.">
+<meta name="twitter:image" content="https://aryan-jain06.github.io/assets/og.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner" aria-label="Main">
+    <a class="brand" href="index.html" aria-label="Aryan Jain — home">
+      <span class="brand__mark" aria-hidden="true">AJ</span>
+      <span class="brand__name">Aryan Jain <span>/ backend</span></span>
+    </a>
+
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav__links" id="nav-links">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="experience.html">Experience</a>
+      <a class="nav__link" href="projects.html" aria-current="page">Projects</a>
+      <a class="nav__link" href="skills.html">Skills</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+      <a class="nav__resume" href="assets/Aryan_Jain_Resume.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2.5H7A2 2 0 0 0 5 4.5v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-11z"/><path d="M14 2.5v6h5"/></svg> Resume
+      </a>
+    </div>
+  </nav>
+</header>
+<main id="main">
+
+<section class="section" style="padding-top: calc(var(--nav-h) + clamp(2rem, 5vw, 3.5rem))">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Projects</span>
+      <h2 class="section-title">Things I built and then tried to break</h2>
+      <p class="section-sub">The two featured systems are the ones I would want to
+      be asked about: both state a single invariant up front and prove it with an
+      automated test rather than asserting it in prose.</p>
+    </div>
+
+    <div class="projects">
+      <article class="card proj reveal" data-d="1">
+        <div class="proj__top">
+          <span class="proj__index">01</span>
+          <span class="proj__flag">Featured</span>
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">HookRelay <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">Webhook delivery as a standalone service — HMAC-signed, retried with exponential backoff for hours, and parked in a replayable dead-letter queue instead of quietly lost.</p>
+          <p class="proj__note">10,000 events fanned out to 30,000 deliveries with zero lost — verified under a hard SIGKILL of the worker mid-flight.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Go</span>
+            <span class="tag">Redis Streams</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Prometheus</span>
+            <span class="tag">Docker</span>
+          </div>
+          <div class="proj__foot">
+            <a class="proj__link" href="https://github.com/Aryan-Jain06/HookRelay" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
+            <span class="proj__lang"><i aria-hidden="true"></i> Go</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="2">
+        <div class="proj__top">
+          <span class="proj__index">02</span>
+          <span class="proj__flag">Featured</span>
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">SeatSync <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">High-concurrency event ticketing with a live seat map. Five hundred people race for fifty seats; exactly fifty bookings succeed and no seat is ever sold twice.</p>
+          <p class="proj__note">Redis SET NX EX for the five-minute hold, a partial unique index in Postgres for the invariant. 500 contenders, 50 confirmed, 450 clean conflicts, 0 unexpected outcomes.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Go</span>
+            <span class="tag">Redis locks</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">WebSocket</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">chi</span>
+          </div>
+          <div class="proj__foot">
+            <a class="proj__link" href="https://github.com/Aryan-Jain06/seatsync" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
+            <span class="proj__lang"><i aria-hidden="true"></i> Go</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="3">
+        <div class="proj__top">
+          <span class="proj__index">03</span>
+          
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">Gramin Sahayak <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">AI-powered rural intelligence platform that extracts, verifies, translates and serves localised government policy data in Indian languages.</p>
+          <p class="proj__note">Gemini-powered conversational assistant over a microservices architecture, answering legal, agricultural and policy questions in sub-second time.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Microservices</span>
+            <span class="tag">Gemini</span>
+            <span class="tag">Sarvam AI</span>
+            <span class="tag">Data pipelines</span>
+          </div>
+          <div class="proj__foot">
+            <span class="proj__link" style="opacity:.65">Private repository</span>
+            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="4">
+        <div class="proj__top">
+          <span class="proj__index">04</span>
+          
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">Sign Language Translator <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">Real-time Indian and American Sign Language gesture recognition, translating a live camera feed into text through a custom CNN.</p>
+          <p class="proj__note">Optimised for edge deployment with TinyML — offline, low-latency inference on resource-constrained hardware.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Python</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">CNN</span>
+            <span class="tag">TinyML</span>
+            <span class="tag">CustomTkinter</span>
+          </div>
+          <div class="proj__foot">
+            <a class="proj__link" href="https://github.com/Aryan-Jain06/Sign-Language-Translator" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
+            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="5">
+        <div class="proj__top">
+          <span class="proj__index">05</span>
+          
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">Churn Prediction Model <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">Predicts insurance agent churn from activity, new-business and renewal histories, with feature engineering over three merged datasets.</p>
+          <p class="proj__note">94% accuracy with XGBoost, benchmarked against logistic regression and random forest.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Python</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">pandas</span>
+            <span class="tag">Feature engineering</span>
+          </div>
+          <div class="proj__foot">
+            <a class="proj__link" href="https://github.com/Aryan-Jain06/Churn-Prediction-Model" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
+            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="6">
+        <div class="proj__top">
+          <span class="proj__index">06</span>
+          
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">NewsFlash <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">A live news reader with infinite scroll, category routing and a top-loading progress bar — responsive down to small phones.</p>
+          
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">React</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">Responsive CSS</span>
+          </div>
+          <div class="proj__foot">
+            <a class="proj__link" href="https://github.com/Aryan-Jain06/NewsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
+            <span class="proj__lang"><i aria-hidden="true"></i> JavaScript</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band section--tight section">
+  <div class="wrap reveal">
+    <h2>More on GitHub</h2>
+    <p>Source, READMEs and the load-test output for everything above.</p>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="https://github.com/Aryan-Jain06">Open GitHub <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></a>
+      <a class="btn btn--ghost" href="contact.html">Get in touch</a>
+    </div>
+  </div>
+</section></main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__meta">© 2026 Aryan Jain — built from scratch, no frameworks.</p>
+    <div class="footer__links">
+      <a href="https://github.com/Aryan-Jain06" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/aryan-jain0612" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:aryanjain20040612@gmail.com">Email</a>
+      <a href="assets/Aryan_Jain_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>
