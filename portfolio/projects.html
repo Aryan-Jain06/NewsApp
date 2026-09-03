@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Projects — Aryan Jain</title>
-<meta name="description" content="Projects by Aryan Jain: HookRelay (webhook delivery in Go), SeatSync (ticket booking with Redis and Postgres), Gramin Sahayak, and machine-learning work in Python.">
+<meta name="description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta name="author" content="Aryan Jain">
 <link rel="canonical" href="https://aryan-jain06.github.io/projects.html">
 <meta name="theme-color" content="#fdfaf6" media="(prefers-color-scheme: light)">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aryan Jain">
 <meta property="og:title" content="Projects — Aryan Jain">
-<meta property="og:description" content="Projects by Aryan Jain: HookRelay (webhook delivery in Go), SeatSync (ticket booking with Redis and Postgres), Gramin Sahayak, and machine-learning work in Python.">
+<meta property="og:description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta property="og:url" content="https://aryan-jain06.github.io/projects.html">
 <meta property="og:image" content="https://aryan-jain06.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — Aryan Jain">
-<meta name="twitter:description" content="Projects by Aryan Jain: HookRelay (webhook delivery in Go), SeatSync (ticket booking with Redis and Postgres), Gramin Sahayak, and machine-learning work in Python.">
+<meta name="twitter:description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta name="twitter:image" content="https://aryan-jain06.github.io/assets/og.png">
 
 <!-- icons: SVG for browsers that take it, PNG for the ones that don't
@@ -82,15 +82,38 @@
     <div class="section-head reveal">
       <span class="eyebrow">Projects</span>
       <h2 class="section-title">Projects</h2>
-      <p class="section-sub">Mostly backend. The two Go services at the top are
-      the ones I've spent the most time on, and both have a load test in the
-      repository that checks the behaviour described.</p>
+      <p class="section-sub">Ordered by how much of me is in them. The two Go
+      services each ship with a load test in the repository that checks the
+      behaviour described here.</p>
     </div>
 
     <div class="projects">
       <article class="card proj reveal" data-d="1">
         <div class="proj__top">
           <span class="proj__index">01</span>
+        </div>
+        <div class="proj__body">
+          <h3 class="proj__name">Gramin Sahayak <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
+          <p class="proj__pitch">Misinformation detection for government scheme and policy content, run by an ensemble of five machine-learning models served for low-latency inference — so a claim is checked inline as it is read, rather than in an overnight batch.</p>
+          <p class="proj__note">Around the detection layer: Python and FastAPI pipelines that extract, verify and translate policy data, Sarvam AI for Indian-language translation, and a Gemini-backed assistant over a microservices setup.</p>
+          <div class="tags proj__tags">
+            <span class="tag tag--accent">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">ML ensemble</span>
+            <span class="tag">Low-latency inference</span>
+            <span class="tag">Microservices</span>
+            <span class="tag">Gemini</span>
+            <span class="tag">Sarvam AI</span>
+          </div>
+          <div class="proj__foot">
+            <span class="proj__link proj__link--off">Private repository</span>
+            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
+          </div>
+        </div>
+      </article>
+      <article class="card proj reveal" data-d="2">
+        <div class="proj__top">
+          <span class="proj__index">02</span>
         </div>
         <div class="proj__body">
           <h3 class="proj__name">HookRelay <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
@@ -110,9 +133,9 @@
           </div>
         </div>
       </article>
-      <article class="card proj reveal" data-d="2">
+      <article class="card proj reveal" data-d="3">
         <div class="proj__top">
-          <span class="proj__index">02</span>
+          <span class="proj__index">03</span>
         </div>
         <div class="proj__body">
           <h3 class="proj__name">SeatSync <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
@@ -129,27 +152,6 @@
           <div class="proj__foot">
             <a class="proj__link" href="https://github.com/Aryan-Jain06/seatsync" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
             <span class="proj__lang"><i aria-hidden="true"></i> Go</span>
-          </div>
-        </div>
-      </article>
-      <article class="card proj reveal" data-d="3">
-        <div class="proj__top">
-          <span class="proj__index">03</span>
-        </div>
-        <div class="proj__body">
-          <h3 class="proj__name">Gramin Sahayak <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">A platform that extracts, verifies and translates government policy data, then serves it in Indian languages through a conversational assistant.</p>
-          <p class="proj__note">Data pipelines in Python and FastAPI, translation through Sarvam AI, and a Gemini-backed assistant over a microservices setup.</p>
-          <div class="tags proj__tags">
-            <span class="tag tag--accent">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Microservices</span>
-            <span class="tag">Gemini</span>
-            <span class="tag">Sarvam AI</span>
-          </div>
-          <div class="proj__foot">
-            <span class="proj__link proj__link--off">Private repository</span>
-            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
           </div>
         </div>
       </article>

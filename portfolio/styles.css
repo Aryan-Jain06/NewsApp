@@ -859,6 +859,12 @@ svg.arr { width: 16px; height: 16px; flex: none; }
 
 .bullets strong { color: var(--txt); font-weight: 600; }
 
+.tl-lede {
+  color: var(--txt-dim);
+  font-size: 0.95rem;
+  max-width: 62ch;
+}
+
 .tl-tags { margin-top: var(--s5); }
 
 /* education / compact rows */
