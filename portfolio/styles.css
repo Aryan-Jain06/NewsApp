@@ -4,41 +4,41 @@
    ============================================================ */
 
 /* ------------------------------------------------------------
-   Palette. Warm paper by default; a warm dark variant for
-   viewers whose device asks for dark. Every colour below is a
-   token — nothing downstream hardcodes a hex.
+   Palette — graphite. Deliberately dark only: the site does not
+   follow prefers-color-scheme, so every visitor sees the same
+   thing. Every colour below is a token; nothing downstream
+   hardcodes a hex.
    ------------------------------------------------------------ */
 
 :root {
-  /* paper */
-  --bg:          #fdfaf6;
-  --bg-2:        #f8f3ec;
-  --surface:     #ffffff;
-  --surface-2:   #fffcf8;
-  --line:        rgba(28, 25, 23, 0.11);
-  --line-strong: rgba(28, 25, 23, 0.2);
+  /* graphite */
+  --bg:          #0a0a0c;
+  --bg-2:        #101014;
+  --surface:     #15161a;
+  --surface-2:   #1c1d22;
+  --line:        rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
 
-  /* ink */
-  --txt:      #1c1917;
-  --txt-dim:  #57504a;
-  --txt-mute: #857a71;
+  /* type */
+  --txt:      #f4f4f6;
+  --txt-dim:  #a3a4ae;
+  --txt-mute: #74757f;
 
-  /* accent — clay */
-  --accent:      #b1441e;
-  --accent-mid:  #d4612f;
-  --accent-deep: #8c3315;
-  --accent-rgb:  177, 68, 30;
-  --accent-soft: rgba(177, 68, 30, 0.075);
-  --accent-line: rgba(177, 68, 30, 0.26);
-  --on-accent:   #fffaf6;
+  /* accent — cool steel, the one hue in an otherwise grey system */
+  --accent:      #93a9c9;
+  --accent-mid:  #bccbe0;
+  --accent-deep: #6b81a1;
+  --accent-rgb:  147, 169, 201;
+  --accent-soft: rgba(147, 169, 201, 0.1);
+  --accent-line: rgba(147, 169, 201, 0.28);
+  --on-accent:   #0a0a0c;
 
   /* channels the rest of the sheet tints with */
-  --tint-rgb:   28, 25, 23;
-  --shadow-rgb: 87, 52, 33;
+  --tint-rgb:   255, 255, 255;
+  --shadow-rgb: 0, 0, 0;
 
-  /* shadow strength, dialled down on paper */
-  --sh-card: 0 1px 2px rgba(var(--shadow-rgb), 0.04), 0 10px 26px -18px rgba(var(--shadow-rgb), 0.18);
-  --sh-lift: 0 2px 4px rgba(var(--shadow-rgb), 0.05), 0 20px 40px -22px rgba(var(--shadow-rgb), 0.26);
+  --sh-card: 0 1px 2px rgba(var(--shadow-rgb), 0.3), 0 14px 30px -20px rgba(var(--shadow-rgb), 0.7);
+  --sh-lift: 0 2px 6px rgba(var(--shadow-rgb), 0.35), 0 24px 48px -24px rgba(var(--shadow-rgb), 0.8);
 
   /* spacing scale */
   --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
@@ -68,39 +68,7 @@
   --nav-h: 68px;
   --maxw: 1140px;
 
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* warm dark — brown-black rather than pure black */
-    --bg:          #17130f;
-    --bg-2:        #1d1813;
-    --surface:     #221c17;
-    --surface-2:   #2a231c;
-    --line:        rgba(255, 244, 232, 0.1);
-    --line-strong: rgba(255, 244, 232, 0.19);
-
-    --txt:      #f6efe6;
-    --txt-dim:  #bdaea1;
-    --txt-mute: #8f8277;
-
-    --accent:      #f08a4b;
-    --accent-mid:  #f7ab72;
-    --accent-deep: #c9601f;
-    --accent-rgb:  240, 138, 75;
-    --accent-soft: rgba(240, 138, 75, 0.12);
-    --accent-line: rgba(240, 138, 75, 0.3);
-    --on-accent:   #2b1408;
-
-    --tint-rgb:   255, 244, 232;
-    --shadow-rgb: 0, 0, 0;
-
-    --sh-card: 0 1px 2px rgba(var(--shadow-rgb), 0.3), 0 14px 30px -20px rgba(var(--shadow-rgb), 0.7);
-    --sh-lift: 0 2px 6px rgba(var(--shadow-rgb), 0.35), 0 24px 48px -24px rgba(var(--shadow-rgb), 0.8);
-
-    color-scheme: dark;
-  }
+  color-scheme: dark;
 }
 
 /* ============================================================
@@ -420,13 +388,14 @@ svg.arr { width: 16px; height: 16px; flex: none; }
 .btn svg { width: 15px; height: 15px; flex: none; }
 
 .btn--primary {
-  background: linear-gradient(140deg, var(--accent), var(--accent-deep));
-  color: var(--on-accent);
-  box-shadow: 0 2px 4px rgba(var(--shadow-rgb), 0.12), 0 10px 22px -14px rgba(var(--accent-rgb), 0.55);
+  background: var(--txt);
+  color: var(--bg);
+  box-shadow: 0 2px 6px rgba(var(--shadow-rgb), 0.4);
 }
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(var(--shadow-rgb), 0.14), 0 16px 30px -14px rgba(var(--accent-rgb), 0.65);
+  background: #ffffff;
+  box-shadow: 0 6px 20px -6px rgba(var(--tint-rgb), 0.22);
 }
 
 .btn--ghost {
@@ -859,12 +828,6 @@ svg.arr { width: 16px; height: 16px; flex: none; }
 
 .bullets strong { color: var(--txt); font-weight: 600; }
 
-.tl-lede {
-  color: var(--txt-dim);
-  font-size: 0.95rem;
-  max-width: 62ch;
-}
-
 .tl-tags { margin-top: var(--s5); }
 
 /* education / compact rows */
@@ -1035,6 +998,157 @@ svg.arr { width: 16px; height: 16px; flex: none; }
   transition: transform 0.45s var(--ease);
 }
 .proj:hover::after { transform: scaleX(1); }
+
+/* ============================================================
+   Project case studies — Problem → Solution → Features →
+   Architecture → Technology → Results
+   ============================================================ */
+
+.cases { display: grid; gap: clamp(var(--s7), 6vw, var(--s9)); }
+
+.case {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(var(--s5), 3vw, var(--s7));
+}
+
+.case:first-child { border-top: 0; padding-top: 0; }
+
+.case__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s4) var(--s5);
+  align-items: start;
+  margin-bottom: var(--s6);
+}
+
+.case__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  color: var(--txt-mute);
+  display: block;
+  margin-bottom: var(--s3);
+}
+
+.case__name {
+  font-size: var(--fs-2xl);
+  letter-spacing: -0.03em;
+}
+
+.case__lede {
+  margin-top: var(--s3);
+  color: var(--txt-dim);
+  font-size: var(--fs-lg);
+  max-width: 56ch;
+}
+
+.case__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  justify-content: flex-end;
+}
+
+.case__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--txt-dim);
+  white-space: nowrap;
+  background: rgba(var(--tint-rgb), 0.02);
+  transition: color 0.26s var(--ease), border-color 0.26s var(--ease),
+              background 0.26s var(--ease), transform 0.26s var(--ease);
+}
+
+.case__link svg { width: 13px; height: 13px; flex: none; }
+
+.case__link:hover {
+  color: var(--accent);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.case__link--live { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.case__link--live:hover { background: rgba(var(--accent-rgb), 0.18); }
+
+/* the six blocks */
+.case__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--s5) clamp(var(--s5), 4vw, var(--s7));
+}
+
+.case__block { min-width: 0; }
+
+.case__label {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--txt-mute);
+  margin-bottom: var(--s3);
+}
+
+.case__label::before {
+  content: "";
+  width: 14px;
+  height: 1.5px;
+  background: var(--accent);
+  opacity: 0.75;
+  border-radius: 2px;
+  flex: none;
+}
+
+.case__block p { color: var(--txt-dim); font-size: 0.95rem; }
+
+.case__block ul { display: grid; gap: var(--s2); }
+
+.case__block li {
+  position: relative;
+  padding-left: var(--s4);
+  color: var(--txt-dim);
+  font-size: 0.95rem;
+}
+
+.case__block li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+.case__block strong { color: var(--txt); font-weight: 600; }
+
+/* Results reads as the payoff, so it gets a panel */
+.case__block--results {
+  border-left: 1.5px solid var(--accent-line);
+  padding-left: var(--s4);
+}
+
+.case__block--results p { color: var(--txt); }
+
+.case__block--tech .tags { margin-top: 0; }
+
+@media (max-width: 700px) {
+  .case__head { grid-template-columns: 1fr; }
+  .case__links { justify-content: flex-start; }
+}
 
 /* ============================================================
    Skills

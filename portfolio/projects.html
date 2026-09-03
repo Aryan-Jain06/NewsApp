@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Projects — Aryan Jain</title>
-<meta name="description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
+<meta name="description" content="Projects by Aryan Jain: Gramin Sahayak (misinformation detection for rural India, live at graminsahayak.in), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta name="author" content="Aryan Jain">
 <link rel="canonical" href="https://aryan-jain06.github.io/projects.html">
-<meta name="theme-color" content="#fdfaf6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="index, follow">
 <meta name="keywords" content="Aryan Jain, full stack engineer, backend engineer, Go, React, Next.js, distributed systems, trading infrastructure, Kafka, Redis, PostgreSQL, Kubernetes, NSUT Delhi">
 
@@ -17,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aryan Jain">
 <meta property="og:title" content="Projects — Aryan Jain">
-<meta property="og:description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
+<meta property="og:description" content="Projects by Aryan Jain: Gramin Sahayak (misinformation detection for rural India, live at graminsahayak.in), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta property="og:url" content="https://aryan-jain06.github.io/projects.html">
 <meta property="og:image" content="https://aryan-jain06.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +27,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — Aryan Jain">
-<meta name="twitter:description" content="Projects by Aryan Jain: Gramin Sahayak (low-latency misinformation detection), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
+<meta name="twitter:description" content="Projects by Aryan Jain: Gramin Sahayak (misinformation detection for rural India, live at graminsahayak.in), HookRelay (webhook delivery in Go), SeatSync (high-concurrency ticket booking), and machine-learning work in Python.">
 <meta name="twitter:image" content="https://aryan-jain06.github.io/assets/og.png">
 
 <!-- icons: SVG for browsers that take it, PNG for the ones that don't
@@ -54,7 +53,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="nav">
   <nav class="nav__inner" aria-label="Main">
-    <a class="brand" href="index.html" aria-label="Aryan Jain — home">
+    <a class="brand" href="./" aria-label="Aryan Jain — home">
       <span class="brand__mark" aria-hidden="true">AJ</span>
       <span class="brand__name">Aryan Jain <span>/ full stack</span></span>
     </a>
@@ -64,7 +63,7 @@
     </button>
 
     <div class="nav__links" id="nav-links">
-      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="./">Home</a>
       <a class="nav__link" href="experience.html">Experience</a>
       <a class="nav__link" href="projects.html" aria-current="page">Projects</a>
       <a class="nav__link" href="skills.html">Skills</a>
@@ -82,88 +81,214 @@
     <div class="section-head reveal">
       <span class="eyebrow">Projects</span>
       <h2 class="section-title">Projects</h2>
-      <p class="section-sub">Ordered by how much of me is in them. The two Go
-      services each ship with a load test in the repository that checks the
-      behaviour described here.</p>
+      <p class="section-sub">Each one written up the same way: the problem it
+      exists for, how it solves it, what it does, how it is put together, and
+      what came out of it.</p>
     </div>
 
-    <div class="projects">
-      <article class="card proj reveal" data-d="1">
-        <div class="proj__top">
-          <span class="proj__index">01</span>
+    <div class="cases">
+    <article class="case reveal" data-d="1">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 01 — Python & TypeScript</span>
+          <h3 class="case__name">Gramin Sahayak</h3>
+          <p class="case__lede">A rural-India platform for government schemes, with misinformation detection running inline.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">Gramin Sahayak <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">Misinformation detection for government scheme and policy content, run by an ensemble of five machine-learning models served for low-latency inference — so a claim is checked inline as it is read, rather than in an overnight batch.</p>
-          <p class="proj__note">Around the detection layer: Python and FastAPI pipelines that extract, verify and translate policy data, Sarvam AI for Indian-language translation, and a Gemini-backed assistant over a microservices setup.</p>
-          <div class="tags proj__tags">
+        <div class="case__links">
+          <a class="case__link case__link--live" href="https://graminsahayak.in" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5H19.5v6"/><path d="M19.5 4.5 10 14"/><path d="M18 14.5v3a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"/></svg> graminsahayak.in</a>
+          <a class="case__link" href="https://github.com/kanishka-raisania/gramin-sahayak" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>Rural users cannot easily tell which scheme information is genuine. Policy data is scattered across sources, written in language that is hard to act on, and often unavailable in the reader's own language — which leaves a lot of room for misinformation.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>A platform that gathers scheme data, verifies it, translates it, and checks claims for misinformation as they are read rather than in a later batch job — so the answer arrives while the user is still on the page.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>Misinformation detection over an ensemble of <strong>five machine-learning models</strong></li>
+            <li>Eligibility checker that works out which schemes apply to a user</li>
+            <li>Scheme detail pages and a bulletin board of current notices</li>
+            <li>Conversational assistant for questions in the user's own language</li>
+            <li>Guidance on where to physically go to apply</li>
+            <li>Multilingual onboarding and language selection</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>Pipelines extract and verify policy data at source, then translate it. The five detection models sit behind an inference layer tuned for <strong>low-latency environments</strong>, so a claim is scored inside the request instead of offline. A React front end on Supabase serves the schemes, the assistant and the eligibility flow.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">Python</span>
             <span class="tag">FastAPI</span>
             <span class="tag">ML ensemble</span>
             <span class="tag">Low-latency inference</span>
-            <span class="tag">Microservices</span>
             <span class="tag">Gemini</span>
             <span class="tag">Sarvam AI</span>
-          </div>
-          <div class="proj__foot">
-            <span class="proj__link proj__link--off">Private repository</span>
-            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Supabase</span>
           </div>
         </div>
-      </article>
-      <article class="card proj reveal" data-d="2">
-        <div class="proj__top">
-          <span class="proj__index">02</span>
+        <div class="case__block case__block--results">
+          <h4 class="case__label">Results</h4>
+          <p>Deployed and running at <strong>graminsahayak.in</strong>, serving scheme information in multiple Indian languages with misinformation checks returned inline.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">HookRelay <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">A standalone webhook delivery service. Applications publish events to it; it signs each delivery with HMAC, retries failing endpoints with exponential backoff, and moves deliveries that run out of attempts to a dead-letter queue that can be inspected and replayed.</p>
-          <p class="proj__note">Load test: 10,000 events fanned out to 30,000 deliveries with none lost, including a run where the worker was killed mid-delivery.</p>
-          <div class="tags proj__tags">
+      </div>
+    </article>
+    <article class="case reveal" data-d="2">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 02 — Go</span>
+          <h3 class="case__name">HookRelay</h3>
+          <p class="case__lede">Webhook delivery as a standalone service, built so events are never silently lost.</p>
+        </div>
+        <div class="case__links">
+          <a class="case__link" href="https://github.com/Aryan-Jain06/HookRelay" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>An application that sends its own webhooks loses events whenever a subscriber is down: the request fails, nothing retries it, and there is no record of what never arrived. Every team ends up rebuilding the same retry logic badly.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>Move delivery into a service that takes responsibility for at-least-once delivery. Producers publish an event once; HookRelay persists it, fans it out to every subscribed endpoint, signs each delivery, retries failures for hours, and parks whatever is still failing somewhere it can be inspected and replayed.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>HMAC-signed deliveries, with a per-endpoint secret that can be rotated</li>
+            <li>Eight retry attempts on an exponential backoff schedule</li>
+            <li>Dead-letter queue with per-delivery and bulk replay</li>
+            <li>Event timeline showing every attempt, status code and latency</li>
+            <li>Dashboard with success rate, deliveries per minute and p95 latency</li>
+            <li>Per-tenant API keys for publishing</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>A producer POSTs an event; it is persisted in PostgreSQL and fanned out into one <em>delivery</em> per subscribed endpoint. Deliveries are queued on Redis Streams, and workers pull them, POST to the endpoint and record the attempt. Because the queue and the record of truth are separate, a worker dying mid-flight loses nothing — the delivery is still in the stream.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">Go</span>
             <span class="tag">Redis Streams</span>
             <span class="tag">PostgreSQL</span>
             <span class="tag">Next.js</span>
             <span class="tag">Prometheus</span>
-            <span class="tag">Docker</span>
-          </div>
-          <div class="proj__foot">
-            <a class="proj__link" href="https://github.com/Aryan-Jain06/HookRelay" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
-            <span class="proj__lang"><i aria-hidden="true"></i> Go</span>
+            <span class="tag">Docker Compose</span>
+            <span class="tag">Caddy</span>
           </div>
         </div>
-      </article>
-      <article class="card proj reveal" data-d="3">
-        <div class="proj__top">
-          <span class="proj__index">03</span>
+        <div class="case__block case__block--results">
+          <h4 class="case__label">Results</h4>
+          <p>A load and chaos run fanned <strong>10,000 events into 30,000 deliveries with zero lost</strong>, including a hard SIGKILL of the worker mid-delivery. The dashboard run recorded a 100% success rate at 251 ms p95.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">SeatSync <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">An event ticket booking backend with a live seat map. A seat is held for five minutes by a Redis key that expires on its own, and a partial unique index in Postgres makes selling the same seat twice impossible.</p>
-          <p class="proj__note">Load test: 500 concurrent booking attempts across 50 seats — 50 confirmed, 450 rejected as conflicts, no double sales.</p>
-          <div class="tags proj__tags">
+      </div>
+    </article>
+    <article class="case reveal" data-d="3">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 03 — Go</span>
+          <h3 class="case__name">SeatSync</h3>
+          <p class="case__lede">High-concurrency ticket booking where the same seat can never be sold twice.</p>
+        </div>
+        <div class="case__links">
+          <a class="case__link" href="https://github.com/Aryan-Jain06/seatsync" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>When hundreds of people go for the same seats at the same instant, both naive implementations fail: optimistic writes double-sell seats, and a global lock serialises every booking in the venue.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>Split the problem across two stores. Redis holds the transient claim — a five-minute hold that expires by itself, so nothing has to remember to clean it up and a crashed server does not strand a seat. PostgreSQL holds the permanent sale, with a partial unique index that makes a second sale of the same seat impossible at the database level.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>Live seat map, colour-coded by state, updating over WebSocket</li>
+            <li>Hold up to six seats at once, all-or-nothing</li>
+            <li>Five-minute hold with a live countdown to expiry</li>
+            <li>Idempotent payment step that is safe to retry</li>
+            <li>Expiry worker reconciling lapsed holds every two seconds</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>A Next.js seat map talks REST to a Go API on chi and keeps a WebSocket open to a hub with one room per event. Services take Redis locks with <code>SET NX EX</code> through a Lua script, commit sales in PostgreSQL transactions, and broadcast every state change to the room. A background worker sweeps holds whose TTL has lapsed.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">Go</span>
+            <span class="tag">chi</span>
             <span class="tag">Redis</span>
             <span class="tag">PostgreSQL</span>
+            <span class="tag">pgx</span>
             <span class="tag">WebSocket</span>
             <span class="tag">Next.js</span>
-            <span class="tag">chi</span>
-          </div>
-          <div class="proj__foot">
-            <a class="proj__link" href="https://github.com/Aryan-Jain06/seatsync" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
-            <span class="proj__lang"><i aria-hidden="true"></i> Go</span>
+            <span class="tag">TypeScript</span>
           </div>
         </div>
-      </article>
-      <article class="card proj reveal" data-d="4">
-        <div class="proj__top">
-          <span class="proj__index">04</span>
+        <div class="case__block case__block--results">
+          <h4 class="case__label">Results</h4>
+          <p>An automated proof runs <strong>500 concurrent booking attempts against 50 seats</strong>: exactly 50 confirmed, 450 rejected as clean conflicts, 0 unexpected outcomes, 427.9 ms p95 — then re-checked directly against the database.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">Sign Language Translator <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">Recognises Indian and American Sign Language hand gestures from a webcam feed and translates them to text using a custom CNN, with a desktop GUI.</p>
-          <p class="proj__note">Models optimised with TinyML so inference runs offline on resource-constrained hardware.</p>
-          <div class="tags proj__tags">
+      </div>
+    </article>
+    <article class="case reveal" data-d="4">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 04 — Python</span>
+          <h3 class="case__name">Sign Language Translator</h3>
+          <p class="case__lede">Real-time sign language to text, running offline on ordinary hardware.</p>
+        </div>
+        <div class="case__links">
+          <a class="case__link" href="https://github.com/Aryan-Jain06/Sign-Language-Translator" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>Deaf and hard-of-hearing users have no convenient way to turn signs into text on the devices they already own, and the tools that exist tend to need a network round trip for every frame.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>Recognise hand gestures from a plain webcam feed and classify them locally, assembling text as the user signs.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>Live gesture recognition from a webcam feed</li>
+            <li>Indian and American Sign Language gesture sets</li>
+            <li>Desktop GUI with adjustable camera, gesture and output settings</li>
+            <li>Extensible to further sign languages</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>MediaPipe extracts hand keypoints from each frame, a custom CNN classifies the gesture from those keypoints, and the result is assembled into text in the GUI. Training on keypoints rather than raw pixels is what keeps the model small enough to run locally.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">Python</span>
             <span class="tag">TensorFlow</span>
             <span class="tag">MediaPipe</span>
@@ -171,51 +296,108 @@
             <span class="tag">TinyML</span>
             <span class="tag">CustomTkinter</span>
           </div>
-          <div class="proj__foot">
-            <a class="proj__link" href="https://github.com/Aryan-Jain06/Sign-Language-Translator" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
-            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
-          </div>
         </div>
-      </article>
-      <article class="card proj reveal" data-d="5">
-        <div class="proj__top">
-          <span class="proj__index">05</span>
+        <div class="case__block case__block--results">
+          <h4 class="case__label">Results</h4>
+          <p>Optimised with TinyML for edge deployment, giving offline, low-latency inference on resource-constrained hardware with no network dependency.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">Churn Prediction Model <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">Predicts which insurance agents are likely to leave, using merged agent activity, new-business and renewal datasets.</p>
-          <p class="proj__note">94% accuracy with XGBoost, compared against logistic regression and random forest.</p>
-          <div class="tags proj__tags">
+      </div>
+    </article>
+    <article class="case reveal" data-d="4">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 05 — Python</span>
+          <h3 class="case__name">Churn Prediction Model</h3>
+          <p class="case__lede">Predicting which insurance agents are about to leave.</p>
+        </div>
+        <div class="case__links">
+          <a class="case__link" href="https://github.com/Aryan-Jain06/Churn-Prediction-Model" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>Losing a productive insurance agent is expensive, and the warning signs are split across three separate record sets — agent activity, new business and renewals — so nobody sees them together in time.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>Merge the three sources into one view per agent, engineer the behavioural signals that actually precede churn, and train a classifier to flag who is at risk.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>Merges agent master, new-business and renewal datasets</li>
+            <li>Engineered features: renewal ratio, inactivity period, sales frequency</li>
+            <li>Compares logistic regression, random forest and XGBoost</li>
+            <li>Evaluation with confusion matrix and ROC curve</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>A pipeline of preprocessing (nulls, encoding, outliers) → feature engineering across the merged datasets → model training and comparison → evaluation on held-out data.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">Python</span>
             <span class="tag">XGBoost</span>
             <span class="tag">scikit-learn</span>
             <span class="tag">pandas</span>
           </div>
-          <div class="proj__foot">
-            <a class="proj__link" href="https://github.com/Aryan-Jain06/Churn-Prediction-Model" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
-            <span class="proj__lang"><i aria-hidden="true"></i> Python</span>
-          </div>
         </div>
-      </article>
-      <article class="card proj reveal" data-d="6">
-        <div class="proj__top">
-          <span class="proj__index">06</span>
+        <div class="case__block case__block--results">
+          <h4 class="case__label">Results</h4>
+          <p><strong>94% accuracy with XGBoost</strong>, ahead of both logistic regression and random forest on the same features.</p>
         </div>
-        <div class="proj__body">
-          <h3 class="proj__name">NewsFlash <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg></h3>
-          <p class="proj__pitch">A React news reader with category routing, infinite scroll and a top-loading progress bar.</p>
-          
-          <div class="tags proj__tags">
+      </div>
+    </article>
+    <article class="case reveal" data-d="4">
+      <header class="case__head">
+        <div>
+          <span class="case__index">Project 06 — JavaScript</span>
+          <h3 class="case__name">NewsFlash</h3>
+          <p class="case__lede">A news reader that never makes you click 'next page'.</p>
+        </div>
+        <div class="case__links">
+          <a class="case__link" href="https://github.com/Aryan-Jain06/NewsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> Source</a>
+        </div>
+      </header>
+
+      <div class="case__grid">
+        <div class="case__block">
+          <h4 class="case__label">Problem</h4>
+          <p>Most news front-ends still paginate, so reading across a category means a reload and a lost scroll position on every page.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Solution</h4>
+          <p>A single-page reader that appends the next batch as you reach the bottom, with categories as routes rather than reloads.</p>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Product features</h4>
+          <ul>
+            <li>Live feeds across categories</li>
+            <li>Infinite scroll</li>
+            <li>Sticky navbar for switching category</li>
+            <li>Top-loading progress bar for request state</li>
+            <li>Responsive down to small phones</li>
+          </ul>
+        </div>
+        <div class="case__block">
+          <h4 class="case__label">Architecture</h4>
+          <p>A React single-page app that requests one page of articles per category and appends the next page when the reader nears the end, keeping fetch state in component state.</p>
+        </div>
+        <div class="case__block case__block--tech">
+          <h4 class="case__label">Technology</h4>
+          <div class="tags">
             <span class="tag tag--accent">React</span>
             <span class="tag">JavaScript</span>
             <span class="tag">REST APIs</span>
-          </div>
-          <div class="proj__foot">
-            <a class="proj__link" href="https://github.com/Aryan-Jain06/NewsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55C20.21 21.38 23.5 17.07 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg> View source</a>
-            <span class="proj__lang"><i aria-hidden="true"></i> JavaScript</span>
+            <span class="tag">Responsive CSS</span>
           </div>
         </div>
-      </article>
+      </div>
+    </article>
     </div>
   </div>
 </section>
