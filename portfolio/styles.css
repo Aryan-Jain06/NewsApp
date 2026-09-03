@@ -504,11 +504,20 @@ svg.arr { width: 16px; height: 16px; flex: none; }
   white-space: nowrap;
 }
 
+/* Holds one or more paragraphs — 404.html uses it as a bare <p>. */
 .hero__blurb {
   margin-top: var(--s5);
-  max-width: 52ch;
+  max-width: 54ch;
   color: var(--txt-dim);
   font-size: var(--fs-lg);
+  display: grid;
+  gap: var(--s4);
+}
+
+.hero__blurb p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
 }
 
 .hero__blurb strong { color: var(--txt); font-weight: 600; }
